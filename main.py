@@ -67,6 +67,9 @@ while True :
   if result['moreDataYn'] == 'N' :
     break
 
+excel_sorted = sorted(excel_result, key=lambda result: (result[1], result[2]))
+
+
 import csv
 import codecs
 from datetime import datetime
@@ -80,7 +83,7 @@ csvfile.write(codecs.BOM_UTF8)
 writer = csv.writer(csvfile, delimiter=',')
 writer.writerow(excel_header)
 
-for excel in excel_result:
+for excel in excel_sorted:
   writer.writerow(excel)
 
 csvfile.close()
