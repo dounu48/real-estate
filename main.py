@@ -9,9 +9,11 @@ url = "https://m.land.naver.com/complex/getComplexArticleList"
 
 
 # 8458 서홍 벽산
+# 8438 서홍 한일
+# 8437 서홍 한화
 # 9014 만현 아이파크5
 
-bldg_code = 8458
+bldg_code = 9014
 
 param = {
   'hscpNo' : bldg_code,
@@ -30,7 +32,7 @@ header = {
 logging.basicConfig(level= logging.INFO)
 page = 0
 
-excel_header = ['type', 'building', '호수', '면적', 'price', 'min_price', 'max_price', 'date', 'realtor', 'cnt_realtors']
+excel_header = ['type', 'building', '호수', '면적', 'price', 'min_price', 'max_price', 'date', 'realtor', 'cnt_realtors','비고', '허위']
 excel_result = []
 
 while True :
@@ -67,7 +69,7 @@ while True :
   if result['moreDataYn'] == 'N' :
     break
 
-excel_sorted = sorted(excel_result, key=lambda result: (result[1], result[2]))
+excel_sorted = sorted(excel_result, key=lambda result: ( result[3],result[0], result[1], result[2]))
 
 
 import csv
