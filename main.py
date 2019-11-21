@@ -13,7 +13,7 @@ url = "https://m.land.naver.com/complex/getComplexArticleList"
 # 8437 서홍 한화
 # 9014 만현 아이파크5
 
-bldg_code = 9014
+bldg_code = 8458
 
 param = {
   'hscpNo' : bldg_code,
@@ -32,7 +32,7 @@ header = {
 logging.basicConfig(level= logging.INFO)
 page = 0
 
-excel_header = ['type', 'building', '호수', '면적', 'price', 'min_price', 'max_price', 'date', 'realtor', 'cnt_realtors','비고', '허위']
+excel_header = ['거래유형', '동', '호수', '면적', '가격', '최저', '최고', '올린일자', '부동산', '올린부동산갯수','거래완료', '비고', '허위']
 excel_result = []
 
 while True :
@@ -63,7 +63,8 @@ while True :
                                    item['sameAddrMaxPrc'].encode('utf-8'),
                                    item['cfmYmd'].encode('utf-8'),
                                    item['rltrNm'].encode('utf-8'),
-                                   item['sameAddrCnt'] )
+                                   item['sameAddrCnt'],
+                                   '완료' if item['atclStatCd'].encode('utf-8') == 'R1' else '거래가능',)
     excel_result.append(append_data)
 
   if result['moreDataYn'] == 'N' :
