@@ -68,24 +68,23 @@ def main() :
     for item in result['list'] :
       # if float(item['spc2']) < 80 or float(item['spc2'] > 85) :
       #   continue
-      append_data = ( item['tradTpNm'].encode('utf-8'),
-                                     item['bildNm'].encode('utf-8'),
-                                      (item['flrInfo'].encode('utf-8')).split('/')[0],
-                                     item['spc2'],
-                                     item['prcInfo'].encode('utf-8'),
-                                     item['sameAddrMinPrc'].encode('utf-8'),
-                                     item['sameAddrMaxPrc'].encode('utf-8'),
-                                     item['cfmYmd'].encode('utf-8'),
-                                     item['rltrNm'].encode('utf-8'),
-                                     item['sameAddrCnt'],
-                                     '완료' if item['atclStatCd'].encode('utf-8') == 'R1' else '거래가능',)
+      append_data = ( item['tradTpNm'].encode('utf-8'), # 거래 유형 (매매, 전세, 월세, 단기임대)
+                                     item['bildNm'].encode('utf-8'), # 층
+                                      (item['flrInfo'].encode('utf-8')).split('/')[0], # 호수
+                                     item['spc2'], # 면적
+                                     item['prcInfo'].encode('utf-8'), # 가격
+                                     item['sameAddrMinPrc'].encode('utf-8'), # 최저가격
+                                     item['sameAddrMaxPrc'].encode('utf-8'), # 최고가격
+                                     item['cfmYmd'].encode('utf-8'), # 광고 일자
+                                     item['rltrNm'].encode('utf-8'), # 부동산
+                                     item['sameAddrCnt'], # 부동산 갯수
+                                     '완료' if item['atclStatCd'].encode('utf-8') == 'R1' else '거래가능',) #거래가능여부
       excel_result.append(append_data)
 
     if result['moreDataYn'] == 'N' :
       break
 
   excel_sorted = sorted(excel_result, key=lambda result: ( result[3],result[0], result[1], result[2]))
-
 
   import csv
   import codecs
@@ -101,7 +100,7 @@ def main() :
   csvfile.close()
   print("Excel Success")
 
-  send_email ( SENDER, RECIPIENTS, SUBJECTS, BODY, '%s_%s.csv' % (time, bldg_code))
+ # send_email ( SENDER, RECIPIENTS, SUBJECTS, BODY, '%s_%s.csv' % (time, bldg_code))
 
 
 def send_email ( sender, recipients, subject, body, attachment, mime_type = 'plain') :
