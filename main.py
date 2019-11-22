@@ -26,7 +26,7 @@ SMTP_HOST = 'send.mx.cdnetworks.com'
 # 8437 서홍 한화
 # 9014 만현 아이파크5
 
-bldg_code = 9014
+bldg_code = 8458
 
 def main() :
   param = {
@@ -103,6 +103,15 @@ def main() :
 
   send_email ( SENDER, RECIPIENTS, SUBJECTS, BODY, '%s_%s.csv' % (time, bldg_code))
 
+  remove_file ('%s_%s.csv' % (time, bldg_code))
+
+
+def remove_file(filename) :
+  import os
+  if os.path.exists(filename):
+    os.remove(filename)
+
+    print("Remove File Success")
 
 def send_email ( sender, recipients, subject, body, attachment, mime_type = 'plain') :
   if type (recipients ) != list:
