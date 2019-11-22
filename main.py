@@ -26,7 +26,7 @@ SMTP_HOST = 'send.mx.cdnetworks.com'
 # 8437 서홍 한화
 # 9014 만현 아이파크5
 
-bldg_code = 8458
+bldg_code = 9014
 
 def main() :
   param = {
@@ -71,7 +71,7 @@ def main() :
       append_data = ( item['tradTpNm'].encode('utf-8'), # 거래 유형 (매매, 전세, 월세, 단기임대)
                                      item['bildNm'].encode('utf-8'), # 층
                                       (item['flrInfo'].encode('utf-8')).split('/')[0], # 호수
-                                     item['spc2'], # 면적
+                                     float(item['spc2']), # 면적
                                      item['prcInfo'].encode('utf-8'), # 가격
                                      item['sameAddrMinPrc'].encode('utf-8'), # 최저가격
                                      item['sameAddrMaxPrc'].encode('utf-8'), # 최고가격
@@ -84,6 +84,7 @@ def main() :
     if result['moreDataYn'] == 'N' :
       break
 
+  # sorting ( 면적, 거래유형, 층, 동)
   excel_sorted = sorted(excel_result, key=lambda result: ( result[3],result[0], result[1], result[2]))
 
   import csv
@@ -100,7 +101,7 @@ def main() :
   csvfile.close()
   print("Excel Success")
 
- # send_email ( SENDER, RECIPIENTS, SUBJECTS, BODY, '%s_%s.csv' % (time, bldg_code))
+  send_email ( SENDER, RECIPIENTS, SUBJECTS, BODY, '%s_%s.csv' % (time, bldg_code))
 
 
 def send_email ( sender, recipients, subject, body, attachment, mime_type = 'plain') :
