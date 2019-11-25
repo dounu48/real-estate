@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.shortcuts import render
+from datetime import datetime
 
 # Create your views here.
 
@@ -14,13 +15,19 @@ import pprint
 url = "https://m.land.naver.com/complex/getComplexArticleList"
 
 def real_estate_list(request):
+  # get real estate lists from NAVER
   result = get_real_estate_lists(8458)
 
+  # tuple to list
   contents = []
   for ret in result:
     contents.append(list(ret))
 
-  return render(request, 'main/real_estate_list.html', { 'contents' : contents } )
+  time = datetime.now()
+  time.strftime("%Y-%m-%d %H:%M:%S")
+
+  return render(request, 'main/real_estate_list.html', { 'contents' : contents ,
+                                                         'time' : time } )
 
 
 def get_real_estate_lists(bldg_code) :
