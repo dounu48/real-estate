@@ -101,9 +101,9 @@ def main() :
   csvfile.close()
   print("Excel Success")
 
-  send_email ( SENDER, RECIPIENTS, SUBJECTS, BODY, '%s_%s.csv' % (time, bldg_code))
+#  send_email ( SENDER, RECIPIENTS, SUBJECTS, BODY, '%s_%s.csv' % (time, bldg_code))
 
-  remove_file ('%s_%s.csv' % (time, bldg_code))
+#  remove_file ('%s_%s.csv' % (time, bldg_code))
 
 
 def remove_file(filename) :
