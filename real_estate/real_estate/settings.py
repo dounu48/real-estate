@@ -25,7 +25,9 @@ SECRET_KEY = '279+yk-#3grx^n#8z9b33a!$pvong*$=$a$bv(vjzk7#2t%i@o'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '.real-estate.com']
+ALLOWED_HOSTS = ['127.0.0.1',
+                 'localhost'
+                 ]
 
 
 # Application definition

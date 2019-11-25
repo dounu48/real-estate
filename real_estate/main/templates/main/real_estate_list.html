@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko" >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Title</title>
+</head>
+<body>
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-cly1{text-align:left;vertical-align:middle}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+</style>
+<H1> 벽산 블루밍 </H1>
+
+<table class="tg">
+  <tr>
+    <th class="tg-cly1">거래유형</th>
+    <th class="tg-cly1">동</th>
+    <th class="tg-cly1">층</th>
+    <th class="tg-cly1">면적</th>
+    <th class="tg-cly1">가격</th>
+    <th class="tg-0lax">최저가격</th>
+    <th class="tg-0lax">최대가격</th>
+    <th class="tg-0lax">올린일자</th>
+    <th class="tg-0lax">부동산</th>
+    <th class="tg-0lax">올린부동산갯수</th>
+    <th class="tg-0lax">거래완료</th>
+    <th class="tg-0lax">비고</th>
+    <th class="tg-0lax">허위</th>
+  </tr>
+
+  {% for content in contents %}
+    <tr>
+      <td>{{content.0 }}</td>
+      <td>{{content.1 }}</td>
+      <td>{{content.2 }}</td>
+      <td>{{content.3 }}</td>
+      <td>{{content.4 }}</td>
+      <td>{{content.5 }}</td>
+      <td>{{content.6 }}</td>
+      <td>{{content.7 }}</td>
+      <td>{{content.8 }}</td>
+      <td>{{content.9 }}</td>
+      <td>{{content.10 }}</td>
+      <td></td>
+      <td></td>
+    </tr>
+  {% endfor %}
+
+</table>
+
+</body>
+</html>
