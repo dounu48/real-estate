@@ -27,7 +27,8 @@ def real_estate_list(request):
   time.strftime("%Y-%m-%d %H:%M:%S")
 
   return render(request, 'main/real_estate_list.html', { 'contents' : contents ,
-                                                         'time' : time } )
+                                                         'time' : time,
+                                                         'counts' : len(contents)} )
 
 
 def get_real_estate_lists(bldg_code) :
@@ -48,8 +49,7 @@ def get_real_estate_lists(bldg_code) :
   logging.basicConfig(level=logging.INFO)
   page = 0
 
-  excel_header = ['거래유형', '동', '층', '면적', '가격', '최저', '최고', '올린일자', '부동산', '올린부동산갯수', '거래완료', '비고', '허위']
-  excel_result = []
+  result_list = []
 
   while True:
     page += 1
@@ -76,17 +76,18 @@ def get_real_estate_lists(bldg_code) :
                      item['flrInfo'].split('/')[0],  # 층
                      float(item['spc2']),  # 면적
                      item['prcInfo'],  # 가격
+                     '집주인 인증' if item['vrfcTpCd'] == 'OWNER' else '', # 집주인 인증
                      item['sameAddrMinPrc'],  # 최저가격
                      item['sameAddrMaxPrc'],  # 최고가격
                      item['cfmYmd'],  # 광고 일자
                      item['rltrNm'],  # 부동산
                      item['sameAddrCnt'],  # 부동산 갯수
-                     '완료' if item['atclStatCd'] == 'R1' else '거래가능',)  # 거래가능여부
-      excel_result.append(append_data)
+                     '완료' if item['atclStatCd'] == 'R1' else '',)  # 거래가능여부
+      result_list.append(append_data)
 
     if result['moreDataYn'] == 'N':
       break
 
   # sorting ( 면적, 거래유형, 층, 동)
-  excel_sorted = sorted(excel_result, key=lambda result: (result[3], result[0], result[1], result[2]))
-  return excel_sorted
+  sorted_list = sorted(result_list, key=lambda result: (result[3], result[0], result[1], result[2]))
+  return sorted_list
