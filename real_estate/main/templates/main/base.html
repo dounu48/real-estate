@@ -10,6 +10,15 @@
 </head>
 <body>
 
+    <div class="page-header">
+        <h2> 아파트 선택 </h2>
+        <select>
+            {% for apartment in apartments %}
+            <option value = " {{apartment.code}}" >{{apartment.name}} </option>
+            {% endfor %}
+        </select>
+    </div>
+
     <div class="rows">
         {% block content %}
         {% endblock %}

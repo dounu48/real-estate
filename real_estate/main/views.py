@@ -10,13 +10,16 @@ import requests
 import logging
 import simplejson
 import logging
-import pprint
+
+from .models import Apartment
 
 url = "https://m.land.naver.com/complex/getComplexArticleList"
 
 def real_estate_list(request):
   # get real estate lists from NAVER
   result = get_real_estate_lists(8458)
+
+  apartments = get_apartment_lists()
 
   # tuple to list
   contents = []
@@ -28,7 +31,12 @@ def real_estate_list(request):
 
   return render(request, 'main/real_estate_list.html', { 'contents' : contents ,
                                                          'time' : time,
-                                                         'counts' : len(contents)} )
+                                                         'counts' : len(contents),
+                                                         'apartments' : apartments,
+                                                         } )
+def get_apartment_lists() :
+  apartments = Apartment.objects.filter()
+  return apartments
 
 
 def get_real_estate_lists(bldg_code) :
@@ -77,8 +85,6 @@ def get_real_estate_lists(bldg_code) :
                      float(item['spc2']),  # 면적
                      item['prcInfo'],  # 가격
                      '집주인 인증' if item['vrfcTpCd'] == 'OWNER' else '', # 집주인 인증
-                     item['sameAddrMinPrc'],  # 최저가격
-                     item['sameAddrMaxPrc'],  # 최고가격
                      item['cfmYmd'],  # 광고 일자
                      item['rltrNm'],  # 부동산
                      item['sameAddrCnt'],  # 부동산 갯수

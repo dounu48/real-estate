@@ -26,45 +26,34 @@ from django.conf import settings
 # 17 제주도
 
 class StateCode ( models.Model) :
-  state_code = models.SmallIntegerField(unique=True)
+  state_id = models.IntegerField(default=0)
   name = models.CharField(max_length=100)
 
   def __str__(self):
-    return self.name
+    return "%s %s" % ( self.state_id, self.name )
 
   def __unicode__(self):
     return self.name
 
 class RegionCode ( models.Model) :
-  region_code = models.SmallIntegerField()
-  state_code = models.ManyToManyField(StateCode)
+  region_id = models.IntegerField(default=0)
+  state = models.ForeignKey(StateCode)
   name = models.CharField(max_length=200)
 
   def __str__(self):
-    return self.name
+    return "%s %s" % ( self.region_id, self.name )
 
   def __unicode__(self):
     return self.name
 
-
 class Apartment ( models.Model) :
+  apt_id = models.IntegerField(default=0)
+  region = models.ForeignKey(RegionCode)
   name = models.CharField(max_length=255)
-  region_code = models.ManyToManyField(RegionCode)
-  apt_code = models.SmallIntegerField()
+  apt_code = models.IntegerField(null=False, default=0)
 
   def __str__(self):
     return self.name
 
-
   def __unicode__(self):
     return self.name
-
-
-# class RealEstate (models.Model) :
-# 거래 유형 (매매, 전세, 월세, 단기임대)
-# 동
-# 층
-# 면적
-# 가격
-# 최저가격
-# 최고가격
