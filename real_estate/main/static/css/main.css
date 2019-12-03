@@ -1,3 +1,46 @@
-h1 {
+h2 {
     color: #fc1d16;
+}
+
+body {
+    padding-left: 15px;
+}
+
+.page-header {
+    margin-top: 0;
+    padding: 20px 20px 20px 40px;
+}
+
+.page-header a:visited {
+    color: #42a8ff;
+}
+
+.content {
+    margin-left: 40px;
+}
+
+content container {
+    padding: 15px;
+}
+
+.tg {
+    margin-top: 30px;
+    width: 1200px;
+}
+
+.tg td {
+    padding:7px;
+    border : #4e95f4 1px solid
+}
+
+.tg tr {
+    background: #b9d1f3
+}
+
+.tg tr:nth-child(odd) {
+    background: #b8d1f3
+}
+
+.tg tr:nth-child(even) {
+    background: #dae5f4
 }
