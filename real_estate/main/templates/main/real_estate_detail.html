@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="content-header">
-        <h1>벽산블루밍</h1>
+        <h1> {{name }}</h1>
         <h4> 조회시간 : {{ time }}</h4>
         <h4> 매물건수 : {{ counts }}</h4>
     </div>
@@ -16,7 +16,7 @@
     <th class="tg-cly1">층</th>
     <th class="tg-cly1">면적</th>
     <th class="tg-cly1">가격</th>
-    <th class="tg-cly1">집주인 인증</th>
+    <th class="tg-0lax">집주인 인증</th>
     <th class="tg-0lax">올린일자</th>
     <th class="tg-0lax">부동산</th>
     <th class="tg-0lax">올린부동산갯수</th>
@@ -37,6 +37,7 @@
       <td>{{content.7 }}</td>
       <td>{{content.8 }}</td>
       <td>{{content.9 }}</td>
+
       <td></td>
       <td></td>
     </tr>

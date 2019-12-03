@@ -22,7 +22,7 @@ def real_estate_detail(request, apt_code ) :
 
   name = get_object_or_404(Apartment, apt_code=apt_code)
   contents = get_real_estate_lists(apt_code)
-  time = datetime.now().strftime('%Y-%m-%d')
+  time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
   return render(request, 'main/real_estate_detail.html', { 'contents' : contents ,
                                                            'counts' : len(contents),
