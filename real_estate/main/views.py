@@ -2,7 +2,6 @@
 
 from django.shortcuts import render
 from datetime import datetime
-
 # Create your views here.
 
 from django.shortcuts import render
@@ -16,32 +15,22 @@ from .models import Apartment
 url = "https://m.land.naver.com/complex/getComplexArticleList"
 
 def real_estate_list(request):
-  # get real estate lists from NAVER
-  result = get_real_estate_lists(8458)
 
-  apartments = get_apartment_lists()
-
-  # tuple to list
-  contents = []
-  for ret in result:
-    contents.append(list(ret))
-
-  time = datetime.now()
-  time.strftime("%Y-%m-%d %H:%M:%S")
-
-  return render(request, 'main/real_estate_list.html', { 'contents' : contents ,
-                                                         'time' : time,
-                                                         'counts' : len(contents),
-                                                         'apartments' : apartments,
-                                                         } )
-def get_apartment_lists() :
   apartments = Apartment.objects.filter()
-  return apartments
+  return render(request, 'main/real_estate_list.html', {  'apartments' : apartments,} )
 
 
-def get_real_estate_lists(bldg_code) :
+
+def real_estate_detail(request, apt_code) :
+  contents = get_real_estate_lists(apt_code)
+
+  return render(request, 'main/real_estate_detail.html', { 'contents' : contents ,
+                                                         'counts' : len(contents),
+
+                                                         } )
+def get_real_estate_lists(apt_code ) :
   param = {
-    'hscpNo': bldg_code,
+    'hscpNo': apt_code,
     'tradTpCd': 'A1:B1:B2:B3',  # A1 매매, B1 전세, B2 월세, B3 단기임대
     'showR0': 'N',
     'articleListYN': 'Y',
