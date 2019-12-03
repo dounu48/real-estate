@@ -1,33 +1,35 @@
 # -*- coding: utf-8 -*-
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from datetime import datetime
-# Create your views here.
-
 from django.shortcuts import render
 import requests
-import logging
 import simplejson
 import logging
 
 from .models import Apartment
 
-url = "https://m.land.naver.com/complex/getComplexArticleList"
+URL = "https://m.land.naver.com/complex/getComplexArticleList"
 
 def real_estate_list(request):
 
   apartments = Apartment.objects.filter()
-  return render(request, 'main/real_estate_list.html', {  'apartments' : apartments,} )
+  return render(request, 'main/real_estate_list.html', { 'apartments' : apartments,} )
 
 
 
-def real_estate_detail(request, apt_code) :
+def real_estate_detail(request, apt_code ) :
+
+  name = get_object_or_404(Apartment, apt_code=apt_code)
   contents = get_real_estate_lists(apt_code)
+  time = datetime.now().strftime('%Y-%m-%d')
 
   return render(request, 'main/real_estate_detail.html', { 'contents' : contents ,
-                                                         'counts' : len(contents),
+                                                           'counts' : len(contents),
+                                                           'name' : name,
+                                                           'time' : time, })
 
-                                                         } )
+
 def get_real_estate_lists(apt_code ) :
   param = {
     'hscpNo': apt_code,
@@ -52,7 +54,7 @@ def get_real_estate_lists(apt_code ) :
     page += 1
     param['page'] = page
 
-    resp = requests.get(url, params=param, headers=header)
+    resp = requests.get(URL, params=param, headers=header)
 
     if resp.status_code != 200:
       logging.error('invalid status : %d' % resp.status_code)

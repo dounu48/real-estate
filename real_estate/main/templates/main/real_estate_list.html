@@ -1,9 +1,7 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-<body>
-
-    <div class="page-header">
+<div class="apartment-list" >
         <table>
         {% for apartment in apartments %}
         <tr>
@@ -14,8 +12,5 @@
         </tr>
         {% endfor %}
         </table>
-    </div>
-
-</body>
-
+</div>
 {% endblock %}
