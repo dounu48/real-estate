@@ -11,8 +11,9 @@ body {
     padding: 20px 20px 20px 40px;
 }
 
-.page-header a:visited {
-    color: #42a8ff;
+a  {
+    color: #2711ff;
+    font-weight: bold;
 }
 
 .content {

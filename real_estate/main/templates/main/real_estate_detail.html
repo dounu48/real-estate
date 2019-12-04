@@ -2,9 +2,12 @@
 
 {% block content %}
     <div class="content-header">
-        <h2> {{name }} </h2>
+        <h2> {{ name }} </h2>
         <h4> 조회시간 : {{ time }}</h4>
         <h4> 매물건수 : {{ counts }}</h4>
+    </div>
+    <div>
+        <h4><a href = "{% url 'real_estate_download' apt_code=apt_code %}"> Download </a> </h4>
     </div>
 
     <div class="content container">
@@ -21,8 +24,6 @@
     <td>부동산</td>
     <td>올린부동산갯수</td>
     <td>거래완료</td>
-    <td>비고</td>
-    <td>허위</td>
     </tr>
 
 {% for content in contents %}
@@ -35,8 +36,6 @@
       <td>{{content.5 }}</td>
       <td>{{content.6 }}</td>
       <td>{{content.7 }}</td>
-      <td>{{content.8 }}</td>
-      <td>{{content.9 }}</td>
 
       <td></td>
       <td></td>

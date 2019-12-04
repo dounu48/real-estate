@@ -2,11 +2,10 @@
 
 from django.shortcuts import render, get_object_or_404
 from datetime import datetime
-from django.shortcuts import render
+from django.http import HttpResponse
 import requests
 import simplejson
 import logging
-
 from .models import Apartment
 
 URL = "https://m.land.naver.com/complex/getComplexArticleList"
@@ -27,7 +26,31 @@ def real_estate_detail(request, apt_code ) :
   return render(request, 'main/real_estate_detail.html', { 'contents' : contents ,
                                                            'counts' : len(contents),
                                                            'name' : name,
-                                                           'time' : time, })
+                                                           'time' : time,
+                                                           'apt_code' : apt_code})
+
+def real_estate_download( request, apt_code  ) :
+
+  import csv
+  time = datetime.now().strftime('%Y-%m-%d')
+  csvfile = "%s_%s.csv" % ( apt_code, time)
+
+  contents = get_real_estate_lists(apt_code)
+
+  import pandas as pd
+  results = pd.DataFrame(contents)
+
+
+  results.columns = ['거래유형', '동', '층', '면적', '가격', '집주인인증', '올린일자', '부동산', '올린부동산갯수', '거래완료']
+  results.head()
+ # results.to_csv(csvfile, encoding='cp949')
+  response = HttpResponse( content_type='text/csv')
+  response['Content-Disposition'] = 'attachment; filename=%s' % csvfile
+  results.to_csv(encoding='utf-8', path_or_buf=response)
+
+  return response
+
+
 
 
 def get_real_estate_lists(apt_code ) :
