@@ -12,26 +12,23 @@ URL = "https://m.land.naver.com/complex/getComplexArticleList"
 
 def real_estate_list(request):
 
-  apartments = Apartment.objects.filter()
+  apartments = Apartment.objects.all().order_by('name')
   return render(request, 'main/real_estate_list.html', { 'apartments' : apartments,} )
-
-
 
 def real_estate_detail(request, apt_code ) :
 
-  name = get_object_or_404(Apartment, apt_code=apt_code)
+  apartment = get_object_or_404(Apartment, apt_code=apt_code)
   contents = get_real_estate_lists(apt_code)
   time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
   return render(request, 'main/real_estate_detail.html', { 'contents' : contents ,
                                                            'counts' : len(contents),
-                                                           'name' : name,
+                                                           'apartment' : apartment,
                                                            'time' : time,
                                                            'apt_code' : apt_code})
 
 def real_estate_download( request, apt_code  ) :
 
-  import csv
   time = datetime.now().strftime('%Y-%m-%d')
   csvfile = "%s_%s.csv" % ( apt_code, time)
 
@@ -43,14 +40,12 @@ def real_estate_download( request, apt_code  ) :
 
   results.columns = ['거래유형', '동', '층', '면적', '가격', '집주인인증', '올린일자', '부동산', '올린부동산갯수', '거래완료']
   results.head()
- # results.to_csv(csvfile, encoding='cp949')
+
   response = HttpResponse( content_type='text/csv')
   response['Content-Disposition'] = 'attachment; filename=%s' % csvfile
   results.to_csv(encoding='utf-8', path_or_buf=response)
 
   return response
-
-
 
 
 def get_real_estate_lists(apt_code ) :
