@@ -30,7 +30,7 @@ def real_estate_detail(request, apt_code ) :
 def real_estate_download( request, apt_code  ) :
 
   time = datetime.now().strftime('%Y-%m-%d')
-  csvfile = "%s_%s.csv" % ( apt_code, time)
+  csvfile = "%s_%s.csv" % ( time, apt_code)
 
   contents = get_real_estate_lists(apt_code)
 
