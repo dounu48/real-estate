@@ -38,7 +38,7 @@ def real_estate_download( request, apt_code  ) :
   results = pd.DataFrame(contents)
 
 
-  results.columns = ['거래유형', '동', '층', '면적', '가격', '집주인인증', '올린일자', '부동산', '올린부동산갯수', '거래완료']
+  results.columns = ['거래유형', '동', '층', '면적', '가격', '집주인인증', '올린일자', '부동산', '중개사' '거래완료', '설명']
   results.head()
 
   response = HttpResponse( content_type='text/csv')
@@ -93,11 +93,12 @@ def get_real_estate_lists(apt_code ) :
                      item['flrInfo'].split('/')[0],  # 층
                      float(item['spc2']),  # 면적
                      item['prcInfo'],  # 가격
-                     '집주인 인증' if item['vrfcTpCd'] == 'OWNER' else '', # 집주인 인증
+                     '인증' if item['vrfcTpCd'] == 'OWNER' else '', # 집주인 인증
                      item['cfmYmd'],  # 광고 일자
                      item['rltrNm'],  # 부동산
                      item['sameAddrCnt'],  # 부동산 갯수
-                     '완료' if item['atclStatCd'] == 'R1' else '',)  # 거래가능여부
+                     '완료' if item['atclStatCd'] == 'R1' else '',# 거래가능여부
+                     item['atclFetrDesc'], )   # 설명
       result_list.append(append_data)
 
     if result['moreDataYn'] == 'N':

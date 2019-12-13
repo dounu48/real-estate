@@ -23,8 +23,9 @@
     <td>집주인 인증</td>
     <td>올린일자</td>
     <td>부동산</td>
-    <td>올린부동산갯수</td>
+    <td>집주인인증</td>
     <td>거래완료</td>
+    <td>설명</td>
     </tr>
 
 {% for content in contents %}
@@ -37,9 +38,9 @@
       <td>{{content.5 }}</td>
       <td>{{content.6 }}</td>
       <td>{{content.7 }}</td>
-
-      <td>{{ content.8}}</td>
-      <td>{{ content.9}}</td>
+      <td>{{content.8}}</td>
+      <td>{{content.9}}</td>
+      <td>{{content.10}}</td>
     </tr>
 {% endfor %}
       </table> </div>
