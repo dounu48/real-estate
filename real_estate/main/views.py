@@ -37,13 +37,14 @@ def real_estate_download( request, apt_code  ) :
   import pandas as pd
   results = pd.DataFrame(contents)
 
+  results.index += 1
 
-  results.columns = ['거래유형', '동', '층', '면적', '가격', '집주인인증', '올린일자', '부동산', '중개사' '거래완료' ]
+  results.columns = ['거래유형', '동', '층', '면적', '가격', '집주인인증', '올린일자', '부동산', '중개사', '거래완료' ]
   results.head()
 
   response = HttpResponse( content_type='text/csv')
   response['Content-Disposition'] = 'attachment; filename=%s' % csvfile
-  results.to_csv(encoding='utf-8', path_or_buf=response)
+  results.to_csv(encoding='utf-8', path_or_buf=response , index=True)
 
   return response
 
@@ -97,13 +98,12 @@ def get_real_estate_lists(apt_code ) :
                      item['cfmYmd'],  # 광고 일자
                      item['rltrNm'],  # 부동산
                      item['sameAddrCnt'],  # 부동산 갯수
-                     '완료' if item['atclStatCd'] == 'R1' else '',# 거래가능여부
-      )   # 설명
+                     '완료' if item['atclStatCd'] == 'R1' else '', ) # 거래가능여부
       result_list.append(append_data)
 
     if result['moreDataYn'] == 'N':
       break
 
   # sorting ( 면적, 광고일자 , 층, 동)
-  sorted_list = sorted(result_list, key=lambda result:  result[6]  , reverse=True)
+  sorted_list = sorted(result_list, key=lambda result:  result[6] , reverse=True)
   return sorted_list
