@@ -105,5 +105,5 @@ def get_real_estate_lists(apt_code ) :
       break
 
   # sorting ( 면적, 광고일자 , 층, 동)
-  sorted_list = sorted(result_list, key=lambda result:  result[6] , reverse=True)
+  sorted_list = sorted(result_list, key=lambda result:  (result[3], result[0], result[1], result[2]))
   return sorted_list
