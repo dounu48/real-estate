@@ -87,19 +87,19 @@ def get_real_estate_lists(apt_code ) :
       break
 
     for item in result['list']:
-      # if float(item['spc2']) < 80 or float(item['spc2'] > 85) :
+      if ( float(item['spc2']) > 84 and float(item['spc2']) < 100  ) :
       #   continue
-      append_data = (item['tradTpNm'],  # 거래 유형 (매매, 전세, 월세, 단기임대)
-                     item['bildNm'],  # 동
-                     item['flrInfo'].split('/')[0],  # 층
-                     float(item['spc2']),  # 면적
-                     item['prcInfo'],  # 가격
-                     '인증' if item['vrfcTpCd'] == 'OWNER' else '', # 집주인 인증
-                     item['cfmYmd'],  # 광고 일자
-                     item['rltrNm'],  # 부동산
-                     item['sameAddrCnt'],  # 부동산 갯수
-                     '완료' if item['atclStatCd'] == 'R1' else '', ) # 거래가능여부
-      result_list.append(append_data)
+        append_data = (item['tradTpNm'],  # 거래 유형 (매매, 전세, 월세, 단기임대)
+                       item['bildNm'],  # 동
+                       item['flrInfo'].split('/')[0],  # 층
+                       float(item['spc2']),  # 면적
+                       item['prcInfo'],  # 가격
+                       '인증' if item['vrfcTpCd'] == 'OWNER' else '', # 집주인 인증
+                       item['cfmYmd'],  # 광고 일자
+                       item['rltrNm'],  # 부동산
+                       item['sameAddrCnt'],  # 부동산 갯수
+                       '완료' if item['atclStatCd'] == 'R1' else '', ) # 거래가능여부
+        result_list.append(append_data)
 
     if result['moreDataYn'] == 'N':
       break
