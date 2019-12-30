@@ -39,7 +39,7 @@ def real_estate_download( request, apt_code  ) :
 
   results.index += 1
 
-  results.columns = ['거래유형', '동', '층', '면적', '가격', '집주인인증', '올린일자', '부동산', '중개사', '거래완료' ]
+  results.columns = ['매물번호','거래유형', '동', '층', '면적', '가격', '집주인인증', '올린일자', '부동산', '중개사', '거래완료' ]
   results.head()
 
   response = HttpResponse( content_type='text/csv')
@@ -89,7 +89,8 @@ def get_real_estate_lists(apt_code ) :
     for item in result['list']:
       if ( float(item['spc2']) > 84 and float(item['spc2']) < 100  ) :
       #   continue
-        append_data = (item['tradTpNm'],  # 거래 유형 (매매, 전세, 월세, 단기임대)
+        append_data = ( item['atclNo'], # 매물 번호
+                       item['tradTpNm'],  # 거래 유형 (매매, 전세, 월세, 단기임대)
                        item['bildNm'],  # 동
                        item['flrInfo'].split('/')[0],  # 층
                        float(item['spc2']),  # 면적
